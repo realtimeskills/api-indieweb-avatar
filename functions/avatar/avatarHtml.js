@@ -3,6 +3,7 @@ const cheerio = require("cheerio");
 const EleventyImage = require("@11ty/eleventy-img");
 // const EleventyCache = require("@11ty/eleventy-cache-assets");
 const icoToPng = require('ico-to-png')
+const axios = require('axios')
 
 class AvatarHtml {
   constructor(url) {
