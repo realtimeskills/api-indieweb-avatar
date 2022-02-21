@@ -1,8 +1,8 @@
 const { builder } = require("@netlify/functions");
 const AvatarHtml = require("./avatarHtml.js");
 
-const IMAGE_WIDTH = 60;
-const IMAGE_HEIGHT = 60;
+const IMAGE_WIDTH = 64;
+const IMAGE_HEIGHT = 64;
 const FALLBACK_IMAGE_FORMAT = "png";
 
 async function handler(event, context) {
@@ -35,9 +35,7 @@ async function handler(event, context) {
     console.log("Error", error);
 
     return {
-      // We need to return 200 here or Firefox won’t display the image
-      // HOWEVER a 200 means that if it times out on the first attempt it will stay the default image until the next build.
-      statusCode: 200,
+      statusCode: 404, 
       headers: {
         "content-type": "image/svg+xml",
         "x-error-message": error.message
