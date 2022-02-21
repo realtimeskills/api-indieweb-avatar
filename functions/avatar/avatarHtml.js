@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
 const cheerio = require("cheerio");
 const EleventyImage = require("@11ty/eleventy-img");
-const EleventyCache = require("@11ty/eleventy-cache-assets");
+// const EleventyCache = require("@11ty/eleventy-cache-assets");
 const icoToPng = require('ico-to-png')
 
 class AvatarHtml {
@@ -81,11 +81,9 @@ class AvatarHtml {
   }
 
   async convertIcoToPng(href, width) {
-    let icoBuffer = await EleventyCache(href, {
-      type: "buffer",
-      dryRun: true,
-    });
-    return icoToPng(icoBuffer, width);
+    const response = await axios.get(href,  { responseType: 'arraybuffer' })
+    const buffer = Buffer.from(response.data, "utf-8")
+    return icoToPng(buffer, width);
   }
 
   async getAvatar(width, fallbackImageFormat) {
